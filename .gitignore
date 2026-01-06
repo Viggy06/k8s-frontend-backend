@@ -1,0 +1,61 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+*.db
+*.sqlite3
+*.log
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+media/
+static/
+
+# Virtualenv
+venv/
+env/
+.venv/
+ENV/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Python bytecode
+*.py[cod]
+
+# Coverage reports
+.coverage
+.coverage.*
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Django migrations
+migrations/
+
+# Testing files
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+
+# Secrets and sensitive info
+*.env
+*.secret
+
+# Pipenv
+Pipfile.lock
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Environment variables (if using dotenv)
+.env

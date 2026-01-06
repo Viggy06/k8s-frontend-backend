@@ -1,0 +1,40 @@
+services:
+  mongo-db:
+    image: mongo:6.0.27
+    container_name: mongo-db-compose
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    
+  backend-service:
+    build: ./BE/backend
+    container_name: backend-container-compose
+    restart: unless-stopped
+    # environment:
+      # - MONGO_CONN_STR=mongodb://mongo-db:27017/test-db #service name = mongo-db,mydb,database name
+      #MONGO_CONN_STR THIS VAR NAME SHOULD MATCH WITH THE ONE IN THE CODE
+    ports:
+      - "${BACKEND_PORT}:3500"
+    env_file: #if Docker Compose is told to load the .env file and your backend container receives the variables.
+      - .env
+    depends_on:
+      - mongo-db
+
+  frontend-service:
+    build: ./FE/frontend
+    container_name: frontend-container-compose
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT}:3000"
+    env_file:
+      - .env
+    depends_on:
+      - backend-service
+    
+volumes:
+  mongo_data:
+    
+#ADDITIONAL COMMANDS
+#docker exec -it mongo-db-compose mongosh
