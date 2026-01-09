@@ -1,0 +1,36 @@
+#-------------------------------LoadBalancer---------------------#
+AKIA5GV7SWU7APU7URHE
+74TKhEyZREqcsLfEd1ymHkdwxBV8NmjoHxxzcoCN
+
+#RUN THE BOTH FILE
+# THEN TO ACCESS 
+    - EXTERNAL-IP:3000
+
+NAME              TYPE           CLUSTER-IP      EXTERNAL-IP                                                               PORT(S)          AGE
+backend-service   LoadBalancer   (IP)            asda23131-asda123123.np-america-1.elb.amazonaws.com   3000:32253/TCP   30s
+
+
+3000 → The external port on the LoadBalancer. This is the port you can access from outside.
+32253 → The node port internally used in the cluster. Kubernetes maps external port → 
+        node port → pod target port.
+
+#LoadBalancer will give nodeport but it will be used internally
+
+
+#------------------------CLUSTERIP---------------------------------#
+Called CLUSTERIP.yml
+
+#------------------------EXTRAS------------------------------------#
+ConfigMap
+    It keeps configuration separate from application code
+
+API server Under Control Plane
+record all requests made to the EKS cluster.
+
+#TO get endpoints
+kubectl get endpoints backend-service -n backend-tier
+
+#TO EXEC/SH into POD
+kubectl exec -it <backend-pod> -n backend-tier -- sh
+
+#ClusterIp can be connected from diff pod

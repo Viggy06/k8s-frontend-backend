@@ -1,0 +1,46 @@
+#Video Reference
+#https://www.youtube.com/watch?v=fyS5oGH7mEA
+
+# EKS-Jan-2026 Cluster Name
+# deployment-node-grp
+
+
+#-----------------------FIRST-----------LAB---------------------#
+	Q. Summary
+		- First we will use direct nodeport command without creating a service file and expose the nodeport to access from Browser
+			- Explain - Here we going to get image directly from dockerhub and create the POD
+				- kubectl run amcpod --image=amonkincloud/monk-in-cloud:blue
+					- pod/amcpod created
+				- Now creating Service directly exposing NodePort Itself
+					- kubectl expose pod amcpod --type=NodePort --port=80 --name=amcsvc (service-name)
+				- THEN CHECK NODE IP AND ACCESS FROM BROWSER - (http://nodeip:nodeport)
+
+		- Also we need to change SE so we can access the nodeport from outside
+			- Commands Used:-
+				- aws eks update-kubeconfig --region (region-name) --name (CLUSTER-NAME)
+
+#--------------------------SECOND---------LAB-----------------------#
+	Q.Summary
+		- We will create a service file for frontend-pod with nodeport and expose outside
+		- kubectl apply -f .\frontend-service.yml
+		- DONE
+		- http://IP:32000/
+	
+#-------------------EXTRAS-------------------------#
+Q. kubectl get nodes -o wide
+
+Q. kubectl get pods -n frontend-tier --show-labels
+
+Q. nodePort is the external port opened on every Worker Node.	
+port is the port exposed by the Service inside the cluster.
+targetPort is the port on the Pod that the Service sends traffic to.
+
+NodeIP:3XXXX
+   ↓
+Service (NodePort)
+   ↓
+port: 80
+   ↓
+targetPort: 80
+   ↓
+Pod (Application)

@@ -1,0 +1,26 @@
+#AKSM
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: backend-tier
+  # labels:
+  #   env: dev
+  #   app: webserver
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-backend-deployment
+  template:
+    metadata:
+      labels:
+        app: my-backend-deployment
+    spec:
+      containers:
+        - name: backend-container-deployment-pod
+          image: captianvigg06/devops-project:backend-image-v1.0.0
+          imagePullPolicy: Always #Always pull the image from the registry
+          ports:
+            - containerPort: 3500

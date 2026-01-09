@@ -6,9 +6,9 @@ kind: Deployment
 metadata:
   name: frontend-deployment
   namespace: frontend-tier
-  labels:
-    env: dev
-    app: webserver
+  # labels:
+  #   env: dev
+  #   app: webserver
 spec:
   replicas: 2
   selector:
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: frontend-container-deployment-pod
-          image: captianvigg06/devops-project:backend-image-v1.0.0 
+          image: captianvigg06/devops-project:frontend-image-v1.0.0
           #imagePullPolicy: IfNotPresent #Only pull the image if it is not present locally
           imagePullPolicy: Always #Always pull the image from the registry
           ports:
