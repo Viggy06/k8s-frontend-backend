@@ -1,0 +1,14 @@
+#MONGO SERVICE WHICH COMMUNICATE WITH my-backend-deployment (bacekend-app)
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+  # namespace: backend-database-tier
+spec:
+  selector:
+    app: mongo #must match with mongo-deployment labels (app name in mongo-deployment-pod.yml)
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017

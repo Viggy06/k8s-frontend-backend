@@ -1,0 +1,16 @@
+#This file will have mongo database creds
+#base64 encryption
+  # - echo -n mongouser | base64
+  # - echo -n mongopassword | base64
+
+#An Opaque Secret is the default, generic Secret type used to store arbitrary key–value data, usually sensitive information.
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongo-secret
+  # namespace: backend-database-tier
+type: Opaque
+data:
+  mongo-user: bW9uZ291c2Vy
+  mongo-password: bW9uZ29wYXNzd29yZA==

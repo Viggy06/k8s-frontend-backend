@@ -1,0 +1,20 @@
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: mongo-pv
+#   namespace: database-tier
+# spec:
+#   capacity:
+#     storage: 12Gi
+#   accessModes:
+#     - ReadWriteOnce
+#   persistentVolumeReclaimPolicy: Retain # Options: Retain, Recycle, Delete
+#   volumeMode: Filesystem
+#   storageClassName: ""
+#   hostPath:
+#     path: /mnt/data/mongo
+
+
+#-------------------------------EBS CSI DRIVER------------------------------------
+#USING EBS CSI DRIVER
+#NO NEED FOR PV

@@ -1,0 +1,19 @@
+kubectl get pvc -n database-tier
+kubectl get pv
+
+Backend Pod
+   |
+   v
+MONGO_HOST = mongo-service
+   |
+   v
+DNS resolves → mongo-service (Service ClusterIP)
+   |
+   v
+Service routes → MongoDB Pod (Deployment/StatefulSet)
+   |
+   v
+MongoDB accesses PVC for persistent data
+
+#
+#IRSA allows Kubernetes pods to securely access AWS services using short-lived IAM credentials, without storing secrets.

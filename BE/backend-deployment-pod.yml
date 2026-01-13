@@ -4,10 +4,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
-  namespace: backend-tier
-  # labels:
-  #   env: dev
-  #   app: webserver
+  namespace: backend-database-tier
+  labels:
+    app: my-backend-deployment
 spec:
   replicas: 2
   selector:
@@ -24,3 +23,4 @@ spec:
           imagePullPolicy: Always #Always pull the image from the registry
           ports:
             - containerPort: 3500
+          env:

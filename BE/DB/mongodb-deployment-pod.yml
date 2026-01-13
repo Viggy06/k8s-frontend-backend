@@ -1,0 +1,44 @@
+#THIS FILE WILL ACTS A SERVICE BETWEEN MONGO-DB AND WEB-APP
+#COMMUNICATE BETWEEN WEB-APP AND MONGO-DB
+#MONGO DEPLOYMENT AND SERVICE
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  # namespace: backend-database-tier
+  labels:
+    app: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:5.0
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: mongo-storage
+          mountPath: /data/db
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME #THIS IS REQUIRED FIRST TIME WHEN CREATING MONGO DB CONTAINER BY MONGODB ITESELF
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret #service name
+              key: mongo-user #taken from secret file
+        - name: MONGO_INITDB_ROOT_PASSWORD #THIS IS REQUIRED FIRST TIME WHEN CREATING MONGO DB CONTAINER BY MONGODB ITESELF
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: mongo-password
+      volumes:
+      - name: mongo-storage
+        persistentVolumeClaim:
+          claimName: mongo-pvc

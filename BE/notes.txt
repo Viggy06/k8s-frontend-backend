@@ -1,6 +1,5 @@
 #-------------------------------LoadBalancer---------------------#
-AKIA5GV7SWU7APU7URHE
-74TKhEyZREqcsLfEd1ymHkdwxBV8NmjoHxxzcoCN
+devops03-three-tier-stack
 
 #RUN THE BOTH FILE
 # THEN TO ACCESS 
@@ -34,3 +33,17 @@ kubectl get endpoints backend-service -n backend-tier
 kubectl exec -it <backend-pod> -n backend-tier -- sh
 
 #ClusterIp can be connected from diff pod
+
+Backend Pod
+   |
+   v
+MONGO_HOST = mongo-service
+   |
+   v
+DNS resolves → mongo-service (Service ClusterIP)
+   |
+   v
+Service routes → MongoDB Pod (Deployment/StatefulSet)
+   |
+   v
+MongoDB accesses PVC for persistent data

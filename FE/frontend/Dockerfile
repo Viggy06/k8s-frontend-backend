@@ -13,3 +13,5 @@ RUN npm install
 COPY . .
 CMD [ "npm", "start" ]
 
+#Every Line in Dockerfile creates a new layer in the image.
+#So, it is better to copy package.json  first and COPY the rest of the files later.

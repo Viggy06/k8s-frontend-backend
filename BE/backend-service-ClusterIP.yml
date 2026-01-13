@@ -1,8 +1,10 @@
+#Will use this for FROTNEND-TO-BACKEND-COMMUNICATION
+
 apiVersion: v1
 kind: Service
 metadata:
   name: backend-service
-  namespace: backend-tier
+  namespace: backend-database-tier
 spec:
   type: ClusterIP
   selector:
