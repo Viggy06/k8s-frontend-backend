@@ -6,6 +6,7 @@ metadata:
   name: mongo-service
   # namespace: backend-database-tier
 spec:
+  type: ClusterIP
   selector:
     app: mongo #must match with mongo-deployment labels (app name in mongo-deployment-pod.yml)
   ports:

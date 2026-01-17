@@ -1,29 +1,29 @@
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: mongo-pvc
-#   namespace: database-tier
-# spec:
-#   accessModes:
-#     - ReadWriteOnce #Shouldmatch the access mode of the PV
-#   resources:
-#     requests:
-#       storage: 10Gi #Should not exceed the storage capacity of the PV
-#   storageClassName: ""
-#   volumeName: mongo-pv #Bindstothe specific PV named mongo-pv
-
-
-#-------------------------------EBS CSI DRIVER------------------------------------
-#USING EBS CSI DRIVER
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mongo-pvc
-  # namespace: backend-database-tier
+  # namespace: database-tier
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: mongodb-ebs-gp3
+    - ReadWriteOnce #Shouldmatch the access mode of the PV
   resources:
     requests:
-      storage: 10Gi
+      storage: 6Gi #Should not exceed the storage capacity of the PV
+  storageClassName: ""
+  volumeName: mongo-pv #Bindstothe specific PV named mongo-pv
+
+
+#-------------------------------EBS CSI DRIVER------------------------------------
+#USING EBS CSI DRIVER
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: mongo-pvc
+#   # namespace: backend-database-tier
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   storageClassName: mongodb-ebs-gp3
+#   resources:
+#     requests:
+#       storage: 10Gi

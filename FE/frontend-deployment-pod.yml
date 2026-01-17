@@ -5,7 +5,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
-  namespace: frontend-tier
+  # namespace: frontend-tier
   # labels:
   #   env: dev
   #   app: webserver
@@ -26,3 +26,8 @@ spec:
           imagePullPolicy: Always #Always pull the image from the registry
           ports:
             - containerPort: 3000
+          env:
+            - name: BACKEND_BASE_URL
+              value: "http://backend-service:3500"
+
+              

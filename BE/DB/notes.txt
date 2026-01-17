@@ -17,3 +17,5 @@ MongoDB accesses PVC for persistent data
 
 #
 #IRSA allows Kubernetes pods to securely access AWS services using short-lived IAM credentials, without storing secrets.
+
+#kubectl port-forward svc/mongo-service 27017:27017

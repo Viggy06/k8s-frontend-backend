@@ -28,6 +28,8 @@ spec:
         - name: mongo-storage
           mountPath: /data/db
         env:
+        # - name: MONGO_INITDB_DATABASE
+        #   value: mytestdb001
         - name: MONGO_INITDB_ROOT_USERNAME #THIS IS REQUIRED FIRST TIME WHEN CREATING MONGO DB CONTAINER BY MONGODB ITESELF
           valueFrom:
             secretKeyRef:

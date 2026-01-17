@@ -5,6 +5,6 @@
 # kind: ConfigMap
 # metadata:
 #   name: mongo-config
-#   namespace: database-tier
+#   # namespace: database-tier
 # data:
 #   mongo-url: mongo-service #service name 
