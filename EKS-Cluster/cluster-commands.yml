@@ -20,6 +20,9 @@
 #create eks cluster command
 #eksctl create cluster --name eks-cluster-003 --region ap-south-1 --version 1.34 --nodegroup-name node-group-1 --node-type t3.small --nodes 1
 
+#TO CONNECT TO THE CLUSTER
+#aws eks update-kubeconfig --region ap-south-1 --name (NAME)
+
 #To associate OIDC provider with the EKS cluster
 #eksctl utils associate-iam-oidc-provider --cluster eks-cluster-003 --region ap-south-1 --approve
 #2026-01-13 17:42:13 [ℹ]  will create IAM Open ID Connect provider for cluster "eks-cluster-003" in "ap-south-1"

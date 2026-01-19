@@ -1,0 +1,54 @@
+#eks-alb-policy-jan eks-als-policy
+
+#It creates DNS name for ALB and ALB security group
+#Need to update VPC tags for ALB ingress controller to work
+  #--tags Key=kubernetes.io/cluster/eks-cluster-003
+
+#DOCS
+  #https://www.youtube.com/watch?v=AhzZQlb_k40
+  #https://docs.aws.amazon.com/eks/latest/userguide/lbc-helm.html
+
+#Step 1
+  # - Take OIDC provider URL from EKS console
+  # - Go to IAM -> Identity providers -> Add provider
+  # - Provider type: OpenID Connect
+  # - Provider URL: Paste the OIDC provider URL taken from EKS console
+  # - Audience: sts.amazonaws.com 
+# - Create provider
+#Step 2
+  # - Go to IAM -> Policies -> Create policy -> JSON
+  # - Paste the content of the file aws-alb-ingress-controller-policy.json
+  # - Review policy -> Name: alb-ingress-controller-policy -> Create policy
+#Step 3
+  # - Go to IAM -> Roles -> Create role -> Select type of trusted entity: Web identity
+  # - Identity provider: Select the OIDC provider created in Step 1
+  # - Audience: sts.amazonaws.com
+  # - Click on "Add permissions" -> Attach policies -> Select the policy created in Step 2 (eks-alb-policy-jan)
+  # - Next -> Role name: eks-alb-role-jan -> Create role
+#Step 4
+  # Create a service account with the IAM ROLE with annotation
+  # CHECK FOR AANOTATIONS IN THE service_account.yml FILE
+  # kubectl apply -f service_account.yml
+
+
+#Step 5 
+# helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=eks-cluster-003 --set serviceAccount.create=false --set region=ap-south-1 --set vpcId=vpc-052080a1c4c62a254 --set serviceAccount.name=aws-load-balancer-controller
+# NAME: aws-load-balancer-controller
+# LAST DEPLOYED: Mon Jan 19 07:17:24 2026
+# NAMESPACE: kube-system
+# STATUS: deployed
+# REVISION: 1
+# TEST SUITE: None
+# NOTES:
+# AWS Load Balancer controller installed!
+# You can verify that the controller is running by executing the following command:
+#   kubectl get deployment -n kube-system aws-load-balancer-controller
+
+#Step 6
+# INSIDE your VPC public subnet should be tagged with
+  # Key: kubernetes.io/role/elb
+  # Value: 1 
+  #THIS TELL THE ALB TO CREATE LOAD BALANCER IN THE PUBLIC SUBNETS
+
+#DELETE
+  #kubectl delete ingress name
