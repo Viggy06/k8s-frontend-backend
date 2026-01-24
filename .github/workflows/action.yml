@@ -1,0 +1,32 @@
+name: Running CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      
+      #--- Setting up Node
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      
+      #--- Frontend
+      - name: Install frontend dependencies
+        working-directory: FE/frontend
+        run: npm ci #clean install
+
+      - name: Build frontend
+        working-directory: FE/frontend
+        run: npm run build
+
+      #--- Backend
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
