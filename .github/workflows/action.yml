@@ -19,11 +19,11 @@ jobs:
       
       #--- Frontend
       - name: Install frontend dependencies
-        working-directory: FE/frontend
+        working-directory: FE/frontend/
         run: npm ci #clean install
 
       - name: Build frontend
-        working-directory: FE/frontend
+        working-directory: FE/frontend/
         run: npm run build
 
       #--- Backend
