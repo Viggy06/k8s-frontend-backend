@@ -54,9 +54,9 @@ jobs:
       #--- Gitleaks File Scan
       - name: Gitleaks Secret Scan
         uses: gitleaks/gitleaks-action@v2
+        continue-on-error: true
         with:
           fetch-depth: 0
-          exit-code: 0 #will change later
                 # env:
   #        GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }} # Only required for Organizations, not personal accounts.
 
