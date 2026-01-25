@@ -29,3 +29,13 @@ jobs:
       - name: Install backend dependencies
         working-directory: BE/backend
         run: npm ci
+
+      #--- SonarQube Scan
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        with:
+          args: >
+            -Dsonar.projectKey=todo-app-react-node
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
