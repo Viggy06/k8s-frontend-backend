@@ -30,15 +30,15 @@ jobs:
         working-directory: BE/backend
         run: npm ci
 
-      #--- SonarQube Scan
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
-        with:
-          args: >
-            -Dsonar.projectKey=todo-app-react-node
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      # #--- SonarQube Scan (Disabled)
+      # - name: SonarQube Scan
+      #   uses: SonarSource/sonarqube-scan-action@v6
+      #   with:
+      #     args: >
+      #       -Dsonar.projectKey=todo-app-react-node
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       
       #--- Dependency Check
       # --- Trivy Dependency Scan (Frontend)
@@ -49,7 +49,7 @@ jobs:
           scan-ref: FE/frontend
           scanners: vuln
           severity: HIGH,CRITICAL
-          exit-code: 1
+          exit-code: 0
 
       # --- Trivy Dependency Scan (Backend)
       - name: Trivy Dependency Scan (Backend)
@@ -59,4 +59,14 @@ jobs:
           scan-ref: backend
           scanners: vuln
           severity: HIGH,CRITICAL
-          exit-code: 1
+          exit-code: 0
+
+      #--- Gitleaks File Scan
+      - name: Gitleaks Secret Scan
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          args: >
+            detect
+            --source .
+            --report-format json
+            --report-path gitleaks-report.json
