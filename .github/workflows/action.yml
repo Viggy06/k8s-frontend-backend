@@ -42,25 +42,22 @@ jobs:
       
       #--- Dependency Check
       - name: Trivy Dependency Scan
-        run: |
-          trivy repo . \
-            --scanners vuln \
-            --severity HIGH,CRITICAL \
-            --exit-code 1 \
-            --format json \
-            --output trivy-dependency-report.json
-
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          scan-type: repo
+          scanners: vuln
+          severity: HIGH,CRITICAL
+          exit-code: 1
+          # format: json
+          # output: trivy-dependency-report.json
 
       #--- Gitleaks File Scan
       - name: Gitleaks Secret Scan
         uses: gitleaks/gitleaks-action@v2
         with:
-          args: >
-            detect
-            --source .
-            --report-format json
-            --report-path gitleaks-report.json
-
+          fetch-depth: 0
+        # env:
+  #        GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }} # Only required for Organizations, not personal accounts.
 
 
 #---------------------------------------EXTRA NOTES---------------------------------------#
