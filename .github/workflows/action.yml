@@ -50,8 +50,6 @@ jobs:
           scanners: vuln
           severity: HIGH,CRITICAL
           exit-code: 1
-          format: json
-          output: trivy-frontend-deps.json
 
       # --- Trivy Dependency Scan (Backend)
       - name: Trivy Dependency Scan (Backend)
@@ -62,15 +60,3 @@ jobs:
           scanners: vuln
           severity: HIGH,CRITICAL
           exit-code: 1
-          format: json
-          output: trivy-backend-deps.json
-
-      # --- Upload Trivy reports
-      - name: Upload dependency reports
-        uses: actions/upload-artifact@v3
-        with:
-          name: trivy-dependency-reports
-          path: |
-            trivy-frontend-deps.json
-            trivy-backend-deps.json
-
