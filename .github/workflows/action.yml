@@ -41,25 +41,15 @@ jobs:
       #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       
       #--- Dependency Check
-      # --- Trivy Dependency Scan (Frontend)
-      - name: Trivy Dependency Scan (Frontend)
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: fs
-          scan-ref: FE/frontend
-          scanners: vuln
-          severity: HIGH,CRITICAL
-          exit-code: 0
+      - name: Trivy Dependency Scan
+        run: |
+          trivy repo . \
+            --scanners vuln \
+            --severity HIGH,CRITICAL \
+            --exit-code 1 \
+            --format json \
+            --output trivy-dependency-report.json
 
-      # --- Trivy Dependency Scan (Backend)
-      - name: Trivy Dependency Scan (Backend)
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: fs
-          scan-ref: backend
-          scanners: vuln
-          severity: HIGH,CRITICAL
-          exit-code: 0
 
       #--- Gitleaks File Scan
       - name: Gitleaks Secret Scan
@@ -70,3 +60,26 @@ jobs:
             --source .
             --report-format json
             --report-path gitleaks-report.json
+
+
+
+#---------------------------------------EXTRA NOTES---------------------------------------#
+      # --- Trivy Dependency Scan (Frontend)
+      # - name: Trivy Dependency Scan (Frontend)
+      #   uses: aquasecurity/trivy-action@master
+      #   with:
+      #     scan-type: fs
+      #     scan-ref: FE/frontend
+      #     scanners: vuln
+      #     severity: HIGH,CRITICAL
+      #     exit-code: 0
+
+      # # --- Trivy Dependency Scan (Backend)
+      # - name: Trivy Dependency Scan (Backend)
+      #   uses: aquasecurity/trivy-action@master
+      #   with:
+      #     scan-type: fs #file system scan
+      #     scan-ref: BE/backend
+      #     scanners: vuln
+      #     severity: HIGH,CRITICAL
+      #     exit-code: 0
