@@ -74,6 +74,7 @@ jobs:
       - name: Build & push frontend
         uses: docker/build-push-action@v6
         with:
+          context: ./FE/frontend
           file: ./FE/frontend/Dockerfile
           push: true
           tags: captianvigg06/fe-be-repo:frontend-${{ github.sha }}
@@ -81,7 +82,8 @@ jobs:
       - name: Build & push backend
         uses: docker/build-push-action@v6
         with:
-          file: ./FE/backend/Dockerfile
+          context: ./BE/backend
+          file: ./BE/backend/Dockerfile
           push: true
           tags: captianvigg06/fe-be-repo:backend-${{ github.sha }}
 
