@@ -21,12 +21,11 @@
 # 					"token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
 # 				},
 # 				"StringLike": {
-# 					"token.actions.githubusercontent.com:sub": "repo:Viggy06/k8s-frontend-backend.git:ref:refs/heads/main"
+# 					"token.actions.githubusercontent.com:sub": "repo:Viggy06/k8s-frontend-backend:*"
 # 				}
 # 			}
 # 		}
 # 	]
-# }
-
+}
 
 #ecr repo name ecr-todo-app-2026

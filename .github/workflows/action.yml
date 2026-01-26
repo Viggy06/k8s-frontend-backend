@@ -82,18 +82,10 @@ jobs:
       
       #--- BUILD DOCKER IMAGES
       - name: Build frontend image
-        run: |
-          docker build
-            -f FE/frontend/Dockerfile \
-            -t frontend:${{ github.sha }} \
-            FE/frontend
+        run: docker build -f FE/frontend/Dockerfile -t frontend:${{ github.sha }} .
 
       - name: Build backend image
-        run: |
-          docker build \
-            -f BE/backend/Dockerfile \
-            -t backend:${{ github.sha }} \
-            BE/backend
+        run: docker build -f BE/backend/Dockerfile -t backend:${{ github.sha }} .
 
       #--- ECR Image Scan
       - name: Image Scan using Trivy (Frontend)
