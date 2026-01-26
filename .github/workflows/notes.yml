@@ -1,0 +1,32 @@
+#arn:aws:iam::907713623358:oidc-provider/token.actions.githubusercontent.com
+#ROLE NAME github-actions-ecr-role
+#POLICY NAME github-actions-ecr-role-policy
+
+
+# aws iam create-open-id-connect-provider \
+#     --url https://token.actions.githubusercontent.com \
+#     --client-id-list sts.amazonaws.com 
+
+# {
+# 	"Version": "2012-10-17",
+# 	"Statement": [
+# 		{
+# 			"Effect": "Allow",
+# 			"Principal": {
+# 				"Federated": "arn:aws:iam::907713623358:oidc-provider/token.actions.githubusercontent.com"
+# 			},
+# 			"Action": "sts:AssumeRoleWithWebIdentity",
+# 			"Condition": {
+# 				"StringEquals": {
+# 					"token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+# 				},
+# 				"StringLike": {
+# 					"token.actions.githubusercontent.com:sub": "repo:Viggy06/k8s-frontend-backend.git:ref:refs/heads/main"
+# 				}
+# 			}
+# 		}
+# 	]
+# }
+
+
+#ecr repo name ecr-todo-app-2026
