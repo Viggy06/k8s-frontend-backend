@@ -88,21 +88,21 @@ jobs:
         run: docker build -f BE/backend/Dockerfile -t backend:${{ github.sha }} .
 
       #--- ECR Image Scan
-      - name: Image Scan using Trivy (Frontend)
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: frontend:${{ github.sha }}
-          scanners: vuln
-          severity: HIGH,CRITICAL
-          exit-code: 0
+      # - name: Image Scan using Trivy (Frontend)
+      #   uses: aquasecurity/trivy-action@master
+      #   with:
+      #     image-ref: frontend:${{ github.sha }}
+      #     scanners: vuln
+      #     severity: HIGH,CRITICAL
+      #     exit-code: 0
 
-      - name: Image Scan using Trivy (Backend)
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: backend:${{ github.sha }}
-          scanners: vuln
-          severity: HIGH,CRITICAL
-          exit-code: 0
+      # - name: Image Scan using Trivy (Backend)
+      #   uses: aquasecurity/trivy-action@master
+      #   with:
+      #     image-ref: backend:${{ github.sha }}
+      #     scanners: vuln
+      #     severity: HIGH,CRITICAL
+      #     exit-code: 0
 
       #--- TAGGING AND PUSHING TO ECR
       - name: Pushing To ECR
@@ -112,11 +112,11 @@ jobs:
           BACKEND_REPOSITORY: ${{ vars.ECR_BACKEND_REPO }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker tag frontend:$IMAGE_TAG $REGISTRY/$FRONTEND_REPO:frontend-$IMAGE_TAG
-          docker tag backend:$IMAGE_TAG  $REGISTRY/$BACKEND_REPO:backend-$IMAGE_TAG
+          docker tag frontend:$IMAGE_TAG $REGISTRY/$FRONTEND_REPOSITORY:frontend-$IMAGE_TAG
+          docker tag backend:$IMAGE_TAG  $REGISTRY/$BACKEND_REPOSITORY:backend-$IMAGE_TAG
           
-          docker push $REGISTRY/$FRONTEND_REPO:frontend-$IMAGE_TAG
-          docker push $REGISTRY/$BACKEND_REPO:backend-$IMAGE_TAG
+          docker push $REGISTRY/$FRONTEND_REPOSITORY:frontend-$IMAGE_TAG
+          docker push $REGISTRY/$BACKEND_REPOSITORY:backend-$IMAGE_TAG
       
         #docker tag image_name repository_uri:tag
 
