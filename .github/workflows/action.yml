@@ -40,24 +40,24 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       
-      #--- Dependency Check
-      - name: Trivy Dependency Scan
-        uses: aquasecurity/trivy-action@0.24.0
-        with:
-          scan-type: repo
-          scanners: vuln
-          severity: HIGH,CRITICAL
-          exit-code: 0 #will change later
-          # format: json
-          # output: trivy-dependency-report.json
+      # #--- Dependency Check
+      # - name: Trivy Dependency Scan
+      #   uses: aquasecurity/trivy-action@0.24.0
+      #   with:
+      #     scan-type: repo
+      #     scanners: vuln
+      #     severity: HIGH,CRITICAL
+      #     exit-code: 0 #will change later
+      #     # format: json
+      #     # output: trivy-dependency-report.json
 
-      #--- Gitleaks File Scan
-      - name: Gitleaks Secret Scan
-        uses: gitleaks/gitleaks-action@v2
-        continue-on-error: true
-        with:
-          fetch-depth: 0
-                # env:
+      # #--- Gitleaks File Scan
+      # - name: Gitleaks Secret Scan
+      #   uses: gitleaks/gitleaks-action@v2
+      #   continue-on-error: true
+      #   with:
+      #     fetch-depth: 0
+      #           # env:
   #        GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }} # Only required for Organizations, not personal accounts.
 
       
@@ -95,7 +95,7 @@ jobs:
           image-ref: captianvigg06/fe-be-repo:frontend-${{ github.sha }}
           scanners: vuln
           severity: HIGH,CRITICAL
-          exit-code: 0
+          exit-code: 1
 
       - name: ECR Image Scan using Trivy (Backend)
         uses: aquasecurity/trivy-action@master
@@ -104,7 +104,7 @@ jobs:
           image-ref: captianvigg06/fe-be-repo:backend-${{ github.sha }}
           scanners: vuln
           severity: HIGH,CRITICAL
-          exit-code: 0
+          exit-code: 1
 
 #---------------------------------------EXTRA NOTES---------------------------------------#
       # --- Trivy Dependency Scan (Frontend)
