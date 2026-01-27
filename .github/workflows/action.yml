@@ -148,13 +148,15 @@ jobs:
       #--- Update frontend-deployment-pod.yml with new image tags
       - name: Update frontend-deployment-pod.yml
         run: |
+          pwd
           cd configs-repo/frontend
+          pwd
           sed -i "s|image: .*frontend-:.*|image: captianvigg06/fe-be-repo:frontend-$IMAGE_TAG|" frontend-deployment-pod.yml
       
       - name: Commit frontend image update
         run: |
           cd configs-repo
-          git add frontend/deployment.yaml
+          git add frontend/frontend-deployment-pod.yml
           git commit -m "chore(frontend): update image to ${{ github.sha }}"
           git push
         #chore(frontend) best practise for commit message
@@ -169,7 +171,7 @@ jobs:
       - name: Commit backend image update
         run: |
           cd configs-repo
-          git add backend/deployment.yaml
+          git add backend/backend-deployment-pod.yml
           git commit -m "chore(backend): update image to ${{ github.sha }}"
           git push
 
