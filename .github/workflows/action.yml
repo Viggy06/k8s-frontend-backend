@@ -144,6 +144,12 @@ jobs:
           repository: Viggy06/TO-DO-APP-CONFIGS
           token: ${{ secrets.GH_PAT }}
           path: configs-repo #folder name where this repo will be checked out
+      
+      - name: Configure Git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
 
       #--- Update frontend-deployment-pod.yml with new image tags
       - name: Update frontend-deployment-pod.yml
