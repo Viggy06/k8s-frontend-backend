@@ -129,7 +129,7 @@ jobs:
       
       - name: Pushing To ECR
         run: |
-          docker tag captianvigg06/fe-be-repo:frontend-$IMAGE_TAG
+          docker tag frontend:${{ github.sha }} captianvigg06/fe-be-repo:frontend-$IMAGE_TAG
           docker tag captianvigg06/fe-be-repo:backend-$IMAGE_TAG
           
           docker push captianvigg06/fe-be-repo:frontend-$IMAGE_TAG
