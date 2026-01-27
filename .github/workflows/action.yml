@@ -86,7 +86,7 @@ jobs:
           echo "REGISTRY=dummy-registry" >> $GITHUB_ENV
           echo "FRONTEND_REPOSITORY=dummy-frontend-repo" >> $GITHUB_ENV
           echo "BACKEND_REPOSITORY=dummy-backend-repo" >> $GITHUB_ENV
-          echo "IMAGE_TAG=dummy-tag" >> $GITHUB_ENV
+          echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
 
         # run: |
         #   echo "REGISTRY=${{ steps.login-ecr.outputs.registry }}" >> $GITHUB_ENV
@@ -129,12 +129,12 @@ jobs:
       
       - name: Pushing To ECR
         run: |
-          docker tag frontend:$IMAGE_TAG $REGISTRY/$FRONTEND_REPOSITORY:frontend-$IMAGE_TAG
-          docker tag backend:$IMAGE_TAG  $REGISTRY/$BACKEND_REPOSITORY:backend-$IMAGE_TAG
+          docker tag captianvigg06/fe-be-repo:frontend-$IMAGE_TAG
+          docker tag captianvigg06/fe-be-repo:backend-$IMAGE_TAG
           
-          docker push $REGISTRY/$FRONTEND_REPOSITORY:frontend-$IMAGE_TAG
-          docker push $REGISTRY/$BACKEND_REPOSITORY:backend-$IMAGE_TAG
-      
+          docker push captianvigg06/fe-be-repo:frontend-$IMAGE_TAG
+          docker push captianvigg06/fe-be-repo:backend-$IMAGE_TAG
+
         #docker tag image_name repository_uri:tag
 
       # #--- Updating Manifest File in another repo
@@ -149,7 +149,7 @@ jobs:
       - name: Update frontend-deployment-pod.yml
         run: |
           cd configs-repo/frontend
-          sed -i "s|image: .*frontend-:.*|image: $REGISTRY/$FRONTEND_REPOSITORY:frontend-$IMAGE_TAG|"
+          sed -i "s|image: .*frontend-:.*|image: captianvigg06/fe-be-repo:frontend-$IMAGE_TAG|"
       
       - name: Commit frontend image update
         run: |
@@ -164,7 +164,7 @@ jobs:
       - name: Update backend-deployment-pod.yml
         run: |
           cd configs-repo/backend
-          sed -i "s|image: .*backend-:.*|image: $REGISTRY/$BACKEND_REPOSITORY:backend-$IMAGE_TAG|"
+          sed -i "s|image: .*backend-:.*|image: captianvigg06/fe-be-repo:backend-$IMAGE_TAG|"
       
       - name: Commit backend image update
         run: |
