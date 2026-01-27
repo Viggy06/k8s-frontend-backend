@@ -157,7 +157,7 @@ jobs:
           pwd
           cd configs-repo/frontend
           pwd
-          sed -i "s|image: .*frontend-:.*|image: captianvigg06/fe-be-repo:frontend-$IMAGE_TAG|" frontend-deployment-pod.yml
+          sed -i "s|image: .*:frontend-.*|image: captianvigg06/fe-be-repo:frontend-$IMAGE_TAG|" frontend-deployment-pod.yml
       
       - name: Commit frontend image update
         run: |
@@ -172,7 +172,7 @@ jobs:
       - name: Update backend-deployment-pod.yml
         run: |
           cd configs-repo/backend
-          sed -i "s|image: .*backend-:.*|image: captianvigg06/fe-be-repo:backend-$IMAGE_TAG|" backend-deployment-pod.yml
+          sed -i "s|image: .*:backend-.*|image: captianvigg06/fe-be-repo:backend-$IMAGE_TAG|" backend-deployment-pod.yml
       
       - name: Commit backend image update
         run: |
