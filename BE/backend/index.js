@@ -2,6 +2,7 @@ const tasks = require("./routes/tasks");
 const connection = require("./db");
 const cors = require("cors");
 const express = require("express");
+const client = require("prom-client"); //Prometheus-Grafana
 const app = express();
 const mongoose = require('mongoose');
 
@@ -43,4 +44,34 @@ app.get('/started', (req, res) => {
 app.use("/api/tasks", tasks);
 
 const port = process.env.PORT || 3500;
+
+// Prometheus metrics endpoint
+app.get("/metrics", async (req, res) => {
+    res.set("Content-Type", client.register.contentType);
+    res.end(await client.register.metrics());
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+
+// ===== Prometheus setup =====
+client.collectDefaultMetrics();
+
+// Custom HTTP request counter
+const httpRequestsTotal = new client.Counter({
+    name: "http_requests_total",
+    help: "Total number of HTTP requests",
+    labelNames: ["method", "route", "status"]
+});
+
+// Middleware to count requests
+app.use((req, res, next) => {
+    res.on("finish", () => {
+        httpRequestsTotal.inc({
+            method: req.method,
+            route: req.route?.path || req.path,
+            status: res.statusCode
+        });
+    });
+    next();
+});
